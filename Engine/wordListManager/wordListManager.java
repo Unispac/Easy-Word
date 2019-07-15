@@ -19,8 +19,11 @@ public class wordListManager
     static boolean mode;
     static public ArrayList<word>mylist = new ArrayList<word>();
     static public ArrayList<String>LIST = new ArrayList<String>();
+    static public ArrayList<Long>Interval = new ArrayList<Long>();
+
     static int len;
     static int current;
+
     static public void init()
     {
         String fileName = "./Data/List.list";
@@ -48,7 +51,17 @@ public class wordListManager
         {
             e.printStackTrace();
         }
+        
+        Interval.add((long)300000);
+        Interval.add((long)1800000);
+        Interval.add((long)43200000);
+        Interval.add((long)86400000);
+        Interval.add((long)172800000);
+        Interval.add((long)345600000);
+        Interval.add((long)691200000);
+        Interval.add((long)1296000000);
     }
+
     static public void pickList(boolean isMemorize)
     {
         String listName = "haha";
@@ -65,7 +78,7 @@ public class wordListManager
         fileName+=".list";
         
         String ENG;
-        String CNE;
+        String Note;
         String Time;
         String Level;
 
@@ -121,7 +134,7 @@ public class wordListManager
             boolean LOCK=false;
             StringBuffer record = new StringBuffer();
             Date myDate = new Date();
-            while(in.hasNextLine())
+            while(in.hasNext())
             {
                 temp=in.nextLine();
                 if(temp.trim().length()==0)continue;
@@ -132,6 +145,7 @@ public class wordListManager
                         LOCK=true;
                         record.setLength(0);
                         record.append("*\r\n"+Long.toString(myDate.getTime())+"\r\n");
+                        record.append(0+"\r\n");
                     }
                     else continue;
                 }
