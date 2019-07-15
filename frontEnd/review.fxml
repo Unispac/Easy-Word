@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Engine.review.review">
+   <children>
+      <MenuBar layoutY="-3.0" prefWidth="1920.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Options">
+            <items>
+                  <MenuItem fx:id="Exit" mnemonicParsing="false" onAction="#toExit" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#showHelpInfo" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Text fill="#cad061" layoutX="1341.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Easy-Word">
+         <font>
+            <Font name="Arial Bold" size="96.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1274.0" layoutY="907.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icon.png" />
+         </image>
+      </ImageView>
+      <Text fill="#a1d8ff" layoutX="1549.0" layoutY="940.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Developed By Unispac">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fill="#ff75fe" layoutX="1652.0" layoutY="988.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\@ZJU">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="#db0090" layoutX="1549.0" layoutY="1016.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Me : unispac@zju.edu.cn">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="1491.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Review">
+         <font>
+            <Font size="64.0" />
+         </font></Text>
+      <Text fx:id="ENGWORD" fill="WHITE" layoutX="1445.0" layoutY="408.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ENG" wrappingWidth="308.75">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Button layoutX="1455.0" layoutY="478.0" mnemonicParsing="false" onAction="#Known" prefHeight="43.0" prefWidth="127.0" text="认识" />
+      <Button layoutX="1614.0" layoutY="478.0" mnemonicParsing="false" onAction="#Unknown" prefHeight="43.0" prefWidth="127.0" text="不认识" />
+      <Button layoutX="1489.0" layoutY="557.0" mnemonicParsing="false" onAction="#deleteFromList" text="Delete From List" />
+      <Button layoutX="1550.0" layoutY="632.0" mnemonicParsing="false" onAction="#Next" text="Next" />
+      <ImageView fx:id="maskImage" fitHeight="600.0" fitWidth="600.0" layoutX="324.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true" translateZ="-1.0">
+         <image>
+            <Image url="@mask.jpg" />
+         </image>
+      </ImageView>
+      <WebView fx:id="myPage" layoutX="31.0" layoutY="57.0" prefHeight="900.0" prefWidth="1200.0" />
+      <Button layoutX="1415.0" layoutY="774.0" mnemonicParsing="false" onAction="#mainPage" prefHeight="43.0" prefWidth="368.0" text="HOME" />
+   </children>
+</AnchorPane>
