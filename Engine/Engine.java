@@ -18,14 +18,11 @@ public class Engine extends Application
     {
         touch();
         primaryStage.setMaximized(true);
-        //primaryStage.setAlwaysOnTop(true);
-        //primaryStage.setFullScreen(true);
-        //primaryStage.setIconified(true);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         controlManager.setStage(primaryStage);
-        controlManager.pushPage("home", "/frontEnd/icon.png", "/frontEnd/home.fxml", "EasyWord-Home");
-        controlManager.pushPage("memorize", "/frontEnd/icon.png", "/frontEnd/memorize.fxml", "EasyWord-Memorize");
-        controlManager.pushPage("review", "/frontEnd/icon.png", "/frontEnd/review.fxml", "EasyWord-Review");
+        controlManager.pushPage("home", "/frontEnd/icon.png", "/frontEnd/homePage.fxml", "EasyWord-Home");
+        controlManager.pushPage("memorize", "/frontEnd/icon.png", "/frontEnd/memorizePage.fxml", "EasyWord-Memorize");
+        controlManager.pushPage("review", "/frontEnd/icon.png", "/frontEnd/reviewPage.fxml", "EasyWord-Review");
         controlManager.showPage("home");
     }
     private void touch()

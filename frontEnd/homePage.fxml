@@ -12,7 +12,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Engine.home.home">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0"
+ prefWidth="1920.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="Engine.home.home">
    <children>
       <MenuBar layoutY="-3.0" prefWidth="1920.0">
         <menus>
@@ -28,7 +30,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <WebView fx:id="myPage" layoutX="31.0" layoutY="57.0" prefHeight="1000.0" prefWidth="1200.0" />
+      <WebView fx:id="myPage" layoutX="31.0" layoutY="57.0" prefHeight="650.0" prefWidth="1200.0" />
       <Button layoutX="1491.0" layoutY="323.0" mnemonicParsing="false" onAction="#Review" prefHeight="64.0" prefWidth="251.0" text="Review" />
       <Button layoutX="1491.0" layoutY="476.0" mnemonicParsing="false" onAction="#Memorize" prefHeight="64.0" prefWidth="251.0" text="Memorize" />
       <Text fill="#cad061" layoutX="1366.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Easy-Word">
@@ -56,6 +58,38 @@
       <Text fill="#db0090" layoutX="1549.0" layoutY="1016.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Me : unispac@zju.edu.cn">
          <font>
             <Font size="18.0" />
+         </font>
+      </Text>
+      <TextArea fx:id="noteField" layoutX="346.0" layoutY="790.0" prefHeight="167.0" prefWidth="571.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextArea>
+      <Button fx:id="Button_Insert" layoutX="572.0" layoutY="988.0" mnemonicParsing="false" onAction="#insertItem" text="Insert" />
+      <ChoiceBox fx:id="targetList" layoutX="110.0" layoutY="842.0" prefWidth="150.0" />
+      <Text fill="#a84ae8" layoutX="42.0" layoutY="866.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List :">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fill="#61ffe5" layoutX="602.0" layoutY="773.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fill="#a84ae8" layoutX="42.0" layoutY="925.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Word : ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="myWord" fill="#3b8aae" layoutX="110.0" layoutY="923.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="HINT" fill="#ed2d2d" layoutX="43.0" layoutY="1029.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <font>
+            <Font size="24.0" />
          </font>
       </Text>
    </children>

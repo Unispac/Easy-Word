@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0"
+ styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Engine.review.review">
+   <children>
+      <MenuBar layoutY="-3.0" prefWidth="1920.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Options">
+            <items>
+                  <MenuItem fx:id="Exit" mnemonicParsing="false" onAction="#toExit" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#showHelpInfo" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Text fill="#cad061" layoutX="1348.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Easy-Word">
+         <font>
+            <Font name="Arial Bold" size="96.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1274.0" layoutY="907.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icon.png" />
+         </image>
+      </ImageView>
+      <Text fill="#a1d8ff" layoutX="1549.0" layoutY="940.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Developed By Unispac">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fill="#ff75fe" layoutX="1652.0" layoutY="988.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\@ZJU">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="#db0090" layoutX="1549.0" layoutY="1016.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact Me : unispac@zju.edu.cn">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="1490.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Review">
+         <font>
+            <Font size="64.0" />
+         </font></Text>
+      <Text fx:id="ENGWORD" fill="WHITE" layoutX="1445.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ENG" wrappingWidth="308.75">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Button fx:id="Button_Known" layoutX="1445.0" layoutY="371.0" mnemonicParsing="false" onAction="#Known" prefHeight="43.0" prefWidth="127.0" text="认识" />
+      <Button fx:id="Button_Unknown" layoutX="1614.0" layoutY="371.0" mnemonicParsing="false" onAction="#Unknown" prefHeight="43.0" prefWidth="127.0" text="不认识" />
+      <Button fx:id="Button_Delete" layoutX="1498.0" layoutY="559.0" mnemonicParsing="false" onAction="#deleteFromList" text="Delete From List" />
+      <Button fx:id="Button_Next" layoutX="1542.0" layoutY="450.0" mnemonicParsing="false" onAction="#Next" text="Next" />
+      <ImageView fx:id="maskImage" fitHeight="600.0" fitWidth="600.0" layoutX="329.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" translateZ="-1.0">
+         <image>
+            <Image url="@mask.jpg" />
+         </image>
+      </ImageView>
+      <WebView fx:id="myPage" layoutX="40.0" layoutY="74.0" prefHeight="660.0" prefWidth="1200.0" />
+      <Button layoutX="1453.0" layoutY="633.0" mnemonicParsing="false" onAction="#mainPage" prefHeight="43.0" prefWidth="309.0" text="HOME" />
+      <Text fill="WHITE" layoutX="122.0" layoutY="781.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note :">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="noteField" fill="#50c65e" layoutX="157.0" layoutY="817.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="Progress" fill="#d65e7d" layoutX="1578.0" layoutY="742.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0/0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

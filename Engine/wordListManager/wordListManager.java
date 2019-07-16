@@ -12,17 +12,17 @@ import java.util.Scanner;
 import java.util.concurrent.locks.Lock;
 
 import Engine.word.word;
+import javafx.scene.control.Alert;
 
 public class wordListManager
 {
-    //static String listName=null;
     static boolean mode;
     static public ArrayList<word>mylist = new ArrayList<word>();
     static public ArrayList<String>LIST = new ArrayList<String>();
     static public ArrayList<Long>Interval = new ArrayList<Long>();
-
-    static int len;
-    static int current;
+    static public int len,current,pointer;
+    static private String currentFilePath;
+    static public String currentListName;
 
     static public void init()
     {
@@ -62,11 +62,12 @@ public class wordListManager
         Interval.add((long)1296000000);
     }
 
-    static public void pickList(boolean isMemorize)
+    static public boolean pickList(String listName,boolean isMemorize)
     {
-        String listName = "haha";
-        String fileName = "./Data/"+listName;
-        
+        String fileName = "./Data/"+listName+"/"+listName;
+        currentListName=listName;
+        mylist.clear();
+
         if(isMemorize)
         {
             fileName+=".memorize";
@@ -76,19 +77,72 @@ public class wordListManager
             fileName+=".review";
         }
         fileName+=".list";
-        
-        String ENG;
-        String Note;
-        String Time;
-        String Level;
 
+        currentFilePath=fileName;
+        
+        long date;
+        int level,tot,accurate;
+        String ENG;
+        StringBuffer note = new StringBuffer();
         try
         {
             Scanner in =  new Scanner(new BufferedReader(new FileReader(fileName)));   
-            in.nextLine();
+            boolean LOCK=false;
+            String temp;
+            long now = (new Date()).getTime();
+            while(in.hasNext())
+            {
+                if(LOCK==false)
+                {
+                    temp=in.nextLine();
+                    temp = temp.trim();
+                    if(temp.length()==0)continue;
+                    if(temp.charAt(0)=='*')LOCK=true;
+                    else continue;
+                }
+                else
+                {
+                    LOCK=false;
+                    date=Long.parseLong(in.nextLine());
+                    level=Integer.parseInt(in.nextLine());
+                    tot=Integer.parseInt(in.nextLine());
+                    accurate=Integer.parseInt(in.nextLine());
+                    ENG=in.nextLine();
+                    note.setLength(0);
+                    String mark;
+                    while(in.hasNext())
+                    {
+                        temp=in.nextLine();
+                        mark=temp.trim();
+                        if(mark.length()!=0&&mark.charAt(0)=='*')break;
+                        else
+                        {
+                            note.append(temp+"\r\n");
+                        }
+                    }
+                    mylist.add(new word(ENG,date,level,note.toString(),tot,accurate));
+                }
+            }
+            current=0;
+            len=0;
+            pointer=0;
+            for(word k : mylist)
+            {
+                if(isMemorize==false||k.date<=now)
+                {
+                    len++;
+                    k.visible=true;
+                }   
+            }
+            return true;
         }catch(Exception e)
         {
-            
+            Alert Info = new Alert(Alert.AlertType.INFORMATION);
+            Info.setTitle("Invalid word file!!!");
+            Info.setHeaderText("Fail to read the word list file!!!");
+            Info.setContentText("Fatal Error : the word list file may have been broken.");
+            Info.show();
+            return false;
         }
     }
 
@@ -104,7 +158,6 @@ public class wordListManager
         {
             File dir = new File("./Data/"+listName);
             dir.mkdir();
-            //System.out.println("hello?");
             try
             {
                 reviewFile.createNewFile();
@@ -129,6 +182,7 @@ public class wordListManager
         try
         {
             String temp;
+            String temp_UTF;
             Scanner in =  new Scanner(new BufferedReader(new FileReader(path)));
             FileWriter writer = new FileWriter(fileName,true);
             boolean LOCK=false;
@@ -137,17 +191,29 @@ public class wordListManager
             while(in.hasNext())
             {
                 temp=in.nextLine();
+                //System.out.println(temp);
+
+                //note_GBK = new String(note.getBytes("GBK"),"UTF-8");
                 if(temp.trim().length()==0)continue;
+                //System.out.println(temp+"%%%");
+
                 if(LOCK==false)
                 {
                     if(temp.trim().charAt(0)=='*')
                     {
+
                         LOCK=true;
                         record.setLength(0);
                         record.append("*\r\n"+Long.toString(myDate.getTime())+"\r\n");
-                        record.append(0+"\r\n");
+                        record.append(0+"\r\n");  // level
+                        record.append(0+"\r\n"); // tot cnt
+                        record.append(0+"\r\n"); // accurate cnt
                     }
-                    else continue;
+                    else 
+                    {
+                       // System.out.println(temp+"SB");
+                        continue;
+                    }
                 }
                 else
                 {
@@ -155,47 +221,16 @@ public class wordListManager
                     {
                         LOCK=false;
                         record.append("*\r\n");
-                        System.out.println(record.toString());
+                        //System.out.println(record.toString());
                         writer.write(record.toString());
                     }
                     else
-                    {
+                    {   
                         record.append(temp+"\r\n");
                     }
                 }
             }
             writer.close();
-
-
-            /*String Vocabulary;
-            String Note=""; 
-            
-            while(in.hasNext())
-            {
-                temp=in.nextLine();
-                if(LOCK==false)
-                {
-                    if(temp.trim().charAt(0)=='*'){LOCK=true;FIRST=true;}
-                    else continue;
-                }
-                else
-                {
-                    if(temp.trim().charAt(0)=='*')LOCK=false;
-                    else
-                    {
-                        if(FIRST==true)
-                        {
-                            FIRST=false;
-                            Vocabulary=temp;
-                            Note="";
-                        }
-                        else
-                        {
-                            Note+=(temp+"\r\n");
-                        }
-                    }
-                }
-            }*/
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -204,11 +239,60 @@ public class wordListManager
 
     static public word getWord()
     {
-        return mylist.get(current);
+        if(current<len)
+        {
+            current++;
+            while(mylist.get(pointer).visible==false)pointer++;
+            System.out.print(pointer);
+            return mylist.get(pointer++);
+        }
+        else return null;
     }
-    static public void updateWord()
+    static public void deleteWord()
     {
-
+        if(pointer>0)
+        {
+            mylist.get(pointer-1).discard=true;
+            current--;
+            len--;
+        }
+        updateDisk();
+        return;
+    }
+    static public void insertWord(String listName,boolean isMemorize,word x)
+    {
+        String path="./Data/"+listName+"/"+listName;
+        if(isMemorize)path+=".memorize";
+        else path+=".review";
+        path+=".list";
+        try
+        {
+            FileWriter writer = new FileWriter(path,true);
+            writer.write(x.toString());
+            writer.close();
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return;
+    }
+    static public word updateWord(boolean known)
+    {
+        word temp=null;
+        if(pointer>0)
+        {
+            temp=mylist.get(pointer-1);
+            if(known==true)
+            {
+                temp.level++;
+                if(temp.level==8)
+                {
+                    temp.finish=true;
+                    insertWord(currentListName,false,temp);
+                }
+            }
+        }
+        return temp;
     }
     static private void LISTUPDATE()
     {
@@ -217,13 +301,27 @@ public class wordListManager
         try
         {
             BufferedWriter out=new BufferedWriter(new FileWriter(fileName));
-            //Scanner out =  new Scanner(new BufferedReader(new FileReader(fileName)));
             for(String t:LIST)
             {
-                System.out.println(t);
                 out.write(t+"\r\n");
             }
             out.close();
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    static public void updateDisk()
+    {
+        try
+        {
+            FileWriter writer = new FileWriter(currentFilePath);
+            for(word k : mylist)
+            {
+                if(k.discard||k.finish)continue;
+                else writer.write(k.toString());
+            }
+            writer.close();
         }catch(Exception e)
         {
             e.printStackTrace();
