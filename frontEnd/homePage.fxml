@@ -12,9 +12,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0"
- prefWidth="1920.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="Engine.home.home">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Engine.home.home">
    <children>
       <MenuBar layoutY="-3.0" prefWidth="1920.0">
         <menus>
@@ -87,7 +85,7 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="HINT" fill="#ed2d2d" layoutX="43.0" layoutY="1029.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+      <Text fx:id="HINT" fill="#ed2d2d" layoutX="43.0" layoutY="1055.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
          <font>
             <Font size="24.0" />
          </font>

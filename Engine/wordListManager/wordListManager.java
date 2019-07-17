@@ -8,7 +8,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.locks.Lock;
 
 import Engine.word.word;
@@ -20,6 +22,10 @@ public class wordListManager
     static public ArrayList<word>mylist = new ArrayList<word>();
     static public ArrayList<String>LIST = new ArrayList<String>();
     static public ArrayList<Long>Interval = new ArrayList<Long>();
+
+    static private HashSet<String>wordBuffer = new HashSet<String>();
+    static private String bufferName;
+
     static public int len,current,pointer;
     static private String currentFilePath;
     static public String currentListName;
@@ -177,8 +183,28 @@ public class wordListManager
     static public void Import(String listName,String path)
     {
         String fileName = "./Data/"+listName+"/"+listName+".memorize.list";
-        System.out.println(fileName);
-        System.out.println(path);
+        int tot=0;
+        int accept=0;
+        //System.out.println(fileName);
+        //System.out.println(path);
+        if(bufferName==null||!bufferName.equals(listName))
+        {
+            wordBuffer.clear();
+            bufferName=listName;
+            pickList(listName, true);
+            for(word k:mylist)
+            {
+                wordBuffer.add(k.ENG);
+            }
+            pickList(listName, false);
+            for(word k:mylist)
+            {
+                wordBuffer.add(k.ENG);
+            }
+        }
+
+        Alert message = new Alert(Alert.AlertType.INFORMATION);
+
         try
         {
             String temp;
@@ -188,15 +214,13 @@ public class wordListManager
             boolean LOCK=false;
             StringBuffer record = new StringBuffer();
             Date myDate = new Date();
+            String tempEng=null;
+            boolean first=false;
+
             while(in.hasNext())
             {
                 temp=in.nextLine();
-                //System.out.println(temp);
-
-                //note_GBK = new String(note.getBytes("GBK"),"UTF-8");
                 if(temp.trim().length()==0)continue;
-                //System.out.println(temp+"%%%");
-
                 if(LOCK==false)
                 {
                     if(temp.trim().charAt(0)=='*')
@@ -208,10 +232,10 @@ public class wordListManager
                         record.append(0+"\r\n");  // level
                         record.append(0+"\r\n"); // tot cnt
                         record.append(0+"\r\n"); // accurate cnt
+                        first=true;
                     }
                     else 
                     {
-                       // System.out.println(temp+"SB");
                         continue;
                     }
                 }
@@ -221,19 +245,38 @@ public class wordListManager
                     {
                         LOCK=false;
                         record.append("*\r\n");
-                        //System.out.println(record.toString());
-                        writer.write(record.toString());
+                        tot++;
+                        if(!wordBuffer.contains(tempEng))
+                        {
+                            writer.write(record.toString());
+                            wordBuffer.add(tempEng);
+                            accept++;
+                        }
                     }
                     else
                     {   
+                        if(first==true)
+                        {
+                            first=false;
+                            tempEng=temp;
+                        }
                         record.append(temp+"\r\n");
                     }
                 }
             }
             writer.close();
+            message.setTitle("Importing Succeed");
+            message.setHeaderText("Done!!!");
+            message.setContentText("Successfully imported "+accept+" words out of "
+                +tot+" , "+(tot-accept) +" words were omitted due to duplication."
+            );
+            message.show();
         }catch(Exception e)
         {
-            e.printStackTrace();
+            message.setTitle("Importing Fail");
+            message.setHeaderText("Exception Detected...");
+            message.setContentText("There may be something wrong with your file...");
+            message.show();
         }
     }
 
@@ -252,15 +295,35 @@ public class wordListManager
     {
         if(pointer>0)
         {
-            mylist.get(pointer-1).discard=true;
+            word temp=mylist.get(pointer-1);
+            temp.discard=true;
+            if(currentListName.equals(bufferName))
+            {
+                wordBuffer.remove(temp.ENG);
+            }
             current--;
             len--;
         }
         updateDisk();
         return;
     }
-    static public void insertWord(String listName,boolean isMemorize,word x)
+    static public boolean insertWord(String listName,boolean isMemorize,word x)
     {
+        if(bufferName==null||!bufferName.equals(listName))
+        {
+            wordBuffer.clear();
+            bufferName=listName;
+            pickList(listName, true);
+            for(word k:mylist)
+            {
+                wordBuffer.add(k.ENG);
+            }
+            pickList(listName, false);
+            for(word k:mylist)
+            {
+                wordBuffer.add(k.ENG);
+            }
+        }
         String path="./Data/"+listName+"/"+listName;
         if(isMemorize)path+=".memorize";
         else path+=".review";
@@ -268,13 +331,34 @@ public class wordListManager
         try
         {
             FileWriter writer = new FileWriter(path,true);
-            writer.write(x.toString());
-            writer.close();
+            if(isMemorize==false)
+            {
+                writer.write(x.toString());
+                return true;
+            }
+            else
+            {
+                if(!wordBuffer.contains(x.ENG))
+                {
+                    writer.write(x.ENG);
+                    wordBuffer.add(x.ENG);   
+                    writer.close();    
+                    return true;
+                }
+                else 
+                {
+                    writer.close();
+                    return false;
+                }
+            }
         }catch(Exception e)
         {
-            e.printStackTrace();
+            Alert message = new Alert(Alert.AlertType.INFORMATION);
+            message.setTitle("Exception");
+            message.setHeaderText("Fail to Insert...");
+            message.setContentText("Unknown Error : Maybe your data file has been broken...");
+            return false;
         }
-        return;
     }
     static public word updateWord(boolean known)
     {

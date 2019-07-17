@@ -115,8 +115,8 @@ public class memorize implements Initializable
             if(currentWord.finish)nextTime.setText("Next Time : "+" Already Finish. ");
             else
             {
-                //currentWord.date = (new Date()).getTime();
-                //if(level>=0)currentWord.date+=wordListManager.Interval.get(level);
+                currentWord.date = (new Date()).getTime();
+                if(level>=0)currentWord.date+=wordListManager.Interval.get(level);
                 nextTime.setText("Next Time : "+((new Date(currentWord.date)).toString()));
             }
         }catch(Exception e)

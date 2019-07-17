@@ -259,8 +259,15 @@ public class home implements Initializable
             String note = noteField.getText()+"\r\n";
             long date = (new Date()).getTime();
             word temp = new word(ENG, date, 0, note, 0, 0);
-            wordListManager.insertWord(listName, true, temp);
-            HINT.setText("Done : Insert "+ENG+" to "+listName+".");
+            if(wordListManager.insertWord(listName, true, temp))
+            {
+                HINT.setText("Done : Insert "+ENG+" to "+listName+".");
+            }
+            else
+            {
+                HINT.setText("Fail : \""+ENG+"\" has already existed in the list \""+listName+"\".");
+            }
+            
         }
         else
         {
