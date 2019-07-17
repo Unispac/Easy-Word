@@ -286,7 +286,7 @@ public class wordListManager
         {
             current++;
             while(mylist.get(pointer).visible==false)pointer++;
-            System.out.print(pointer);
+            //System.out.print(pointer);
             return mylist.get(pointer++);
         }
         else return null;
@@ -340,7 +340,8 @@ public class wordListManager
             {
                 if(!wordBuffer.contains(x.ENG))
                 {
-                    writer.write(x.ENG);
+                    //System.out.println(x.toString());
+                    writer.write(x.toString());
                     wordBuffer.add(x.ENG);   
                     writer.close();    
                     return true;

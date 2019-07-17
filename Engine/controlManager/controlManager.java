@@ -61,7 +61,7 @@ class page          //page object.
                     System.exit(0);
                 }
             };
-            System.out.println(resourcePath+" "+iconPath+" "+title);
+            //System.out.println(resourcePath+" "+iconPath+" "+title);
             primaryStage.setOnCloseRequest(handler);
             primaryStage.getIcons().add(new Image(iconPath));
             Parent root = FXMLLoader.load(getClass().getResource(resourcePath)); 
