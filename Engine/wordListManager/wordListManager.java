@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -129,6 +130,7 @@ public class wordListManager
                     mylist.add(new word(ENG,date,level,note.toString(),tot,accurate));
                 }
             }
+            Collections.shuffle(mylist);
             current=0;
             len=0;
             pointer=0;
@@ -140,6 +142,7 @@ public class wordListManager
                     k.visible=true;
                 }   
             }
+            
             return true;
         }catch(Exception e)
         {
