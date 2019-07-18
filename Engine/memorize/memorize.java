@@ -11,7 +11,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -43,6 +45,12 @@ public class memorize implements Initializable
     private Button Button_Known;
     @FXML
     private Button Button_Unknown;
+    @FXML
+    private Button Button_Modify;
+    @FXML 
+    private TextArea noteModifier;
+    @FXML
+    private Button Button_Confirm;
 
 
     private WebEngine myEngine;
@@ -84,6 +92,13 @@ public class memorize implements Initializable
         Button_Known.setDisable(true);
         Button_Unknown.setDisable(true);
         Button_Next.setText("START");
+        Button_Confirm.setDisable(true);
+        Button_Confirm.setOpacity(0);
+        Button_Modify.setDisable(true);
+        Button_Modify.setOpacity(0);
+        noteModifier.setDisable(true);
+        noteModifier.setOpacity(0);
+        noteModifier.setFont(new Font(20));
     }
     static public void touch()
     {
@@ -111,6 +126,12 @@ public class memorize implements Initializable
         {
             //note_GBK = new String(note.getBytes("GBK"),"UTF-8");
             noteField.setText(note);
+            Button_Confirm.setDisable(true);
+            Button_Confirm.setOpacity(0);
+            Button_Modify.setDisable(false);
+            Button_Modify.setOpacity(1);
+            noteModifier.setDisable(true);
+            noteModifier.setOpacity(0);
             History.setText("Accurate Rate : "+currentWord.accurate+"/"+currentWord.tot);
             if(currentWord.finish)nextTime.setText("Next Time : "+" Already Finish. ");
             else
@@ -201,4 +222,28 @@ public class memorize implements Initializable
     {
         controlManager.showPage("home");
     }
+    public void modifyNote()
+    {
+        Button_Modify.setDisable(true);
+        Button_Modify.setOpacity(0);
+        Button_Confirm.setDisable(false);
+        Button_Confirm.setOpacity(1);
+        noteModifier.setDisable(false);
+        noteModifier.setOpacity(1);
+        noteModifier.setText(wordListManager.currentWord.note);
+    }
+    public void confirmModify()
+    {
+        Button_Modify.setDisable(false);
+        Button_Modify.setOpacity(1);
+        Button_Confirm.setDisable(true);
+        Button_Confirm.setOpacity(0);
+        String temp=
+        wordListManager.currentWord.note=noteModifier.getText()+"\r\n";
+        noteField.setText(temp);
+        noteModifier.setDisable(true);
+        noteModifier.setOpacity(0);
+        wordListManager.updateDisk();
+    }
+
 }

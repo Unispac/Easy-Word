@@ -57,9 +57,10 @@ public class home implements Initializable
     public void initialize(URL location, ResourceBundle resources) 
     {
         myEngine=myPage.getEngine();
-        myEngine.load("https://cn.bing.com/dict/HelloWorld");
-        //myPage.setFontScale(1.5);
+        
+        myEngine.load("https://cn.bing.com/dict//HelloWorld");
         myPage.setFontScale(1.5);
+        //myPage.setFontScale(1.5);
         //myPage.setScaleX(0.9);
         //myPage.setScaleY(0.9);
         message.setTitle("Easy-Word By Unispac");

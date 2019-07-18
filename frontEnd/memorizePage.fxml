@@ -103,5 +103,8 @@
             <Font size="18.0" />
          </font>
       </Text>
+      <TextArea fx:id="noteModifier" layoutX="122.0" layoutY="795.0" prefHeight="224.0" prefWidth="923.0" />
+      <Button fx:id="Button_Modify" layoutX="1098.0" layoutY="849.0" mnemonicParsing="false" onAction="#modifyNote" prefHeight="43.0" prefWidth="140.0" text="Modify" />
+      <Button fx:id="Button_Confirm" layoutX="1098.0" layoutY="925.0" mnemonicParsing="false" onAction="#confirmModify" prefHeight="43.0" prefWidth="140.0" text="Confirm" />
    </children>
 </AnchorPane>

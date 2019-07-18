@@ -30,6 +30,7 @@ public class wordListManager
     static public int len,current,pointer;
     static private String currentFilePath;
     static public String currentListName;
+    static public word currentWord;
 
     static public void init()
     {
@@ -290,7 +291,8 @@ public class wordListManager
             current++;
             while(mylist.get(pointer).visible==false)pointer++;
             //System.out.print(pointer);
-            return mylist.get(pointer++);
+            currentWord=mylist.get(pointer++);
+            return currentWord;
         }
         else return null;
     }
